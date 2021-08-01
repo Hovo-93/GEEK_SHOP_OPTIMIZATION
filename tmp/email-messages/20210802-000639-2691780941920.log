@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Verify your account
+From: django@geekshop.local
+To: nokai@gb.local
+Date: Sun, 01 Aug 2021 20:06:39 -0000
+Message-ID: <162784839910.19000.984983587669449894@LAPTOP-PLGTV2I9>
+
+Для подтверждения учетной записи nokia6500 на портале             http://localhost:8088 перейдите по ссылке: 
+http://localhost:8088/users/verify/nokai@gb.local/0e161e8b718a3a9034c566133888dbd5fa4fe144/
+-------------------------------------------------------------------------------
