@@ -1,0 +1,9 @@
+.idea
+__pycache__/
+<<<<<<< HEAD
+db.sqlite3
+=======
+db.sqlite3
+>>>>>>> f59996e40a3120fc1c8859cfa564b865ecb31dbb
+media
+venv

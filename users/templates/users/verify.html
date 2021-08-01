@@ -1,0 +1,14 @@
+{% extends 'users/base.html' %}
+{%block content%}
+    {% if user.is_authenticated%}
+      <div class="alert alert-success" role="alert">Пользователь {{user.email}} успешно активирован>
+        <h4 class="alert-heading">Поздравляем!</h4>
+      </div>
+    {%else%}
+        <h3>Не поздравляем </h3>
+        <div  class="alert alert-danger" role="alert">Пользователь не активирован
+        </div>
+    {%endif%}
+
+
+{% endblock %}
