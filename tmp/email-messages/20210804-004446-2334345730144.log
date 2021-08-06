@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Verify your account
+From: django@geekshop.local
+To: xxxiii@gb.local
+Date: Tue, 03 Aug 2021 20:44:46 -0000
+Message-ID: <162802348644.13864.8894792312792190514@LAPTOP-PLGTV2I9>
+
+Для подтверждения учетной записи xxxlll на портале             http://localhost:8088 перейдите по ссылке: 
+http://localhost:8088/users/verify/xxxiii@gb.local/75ebaf355df45ed5b6fb9129b17ba99d767807c0/
+-------------------------------------------------------------------------------

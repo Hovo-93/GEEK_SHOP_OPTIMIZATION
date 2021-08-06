@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from users.forms import ShopUserProfileEdit
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 
@@ -60,7 +61,7 @@ class UserCreateView(CreateView):
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserCreateView, self).dispatch(request,*args,**kwargs)
+        return super(UserCreateView, self).dispatch(request)
 
 
 # @user_passes_test(lambda u: u.is_staff)
@@ -68,15 +69,19 @@ class UserCreateView(CreateView):
 #     selected_user = User.objects.get(id=pk)
 #     if request.method == 'POST':
 #         form = UserAdminProfileForm(instance=selected_user, files=request.FILES, data=request.POST)
-#         if form.is_valid():
+#         # profile_form = ShopUserProfileEdit(request.POST, instance=request.user.userprofile)
+#
+#         if form.is_valid() :
 #             form.save()
 #             return HttpResponseRedirect(reverse('admins:admin_users'))
 #     else:
 #         form = UserAdminProfileForm(instance=selected_user)
+#         # profile_form = ShopUserProfileEdit(request.POST, instance=request.user.userprofile)
 #     context = {
 #         'title': 'Админ-панель - Редактирование пользовтаеля',
 #         'form': form,
 #         'selected_user': selected_user,
+#         # 'profile_form':profile_form
 #     }
 #     return render(request, 'admins/admin-users-update-delete.html', context)
 class UserUpdateView(UpdateView):
@@ -114,4 +119,4 @@ class UserDeleteView(DeleteView):
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserDeleteView, self).dispatch()
+        return super(UserDeleteView, self).dispatch(request)

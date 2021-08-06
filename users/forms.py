@@ -1,7 +1,7 @@
-import hashlib,random
+import hashlib, random
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from users.models import User
+from users.models import User, UserProfile
 from django import forms
 
 
@@ -30,17 +30,19 @@ class UserRegistrationForm(UserCreationForm):
         'class': 'form-control py-4', 'placeholder': 'Введите пароль'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control py-4', 'placeholder': 'Подтвердите пароль'}))
+
     # age = forms.CharField(widget=forms.CharField(attrs={
     #     'class': 'form-control py-4', 'placeholder': 'Ввести  возраст'
     # }))
 
     def save(self, commit=True):
-        user=super(UserRegistrationForm,self).save()
+        user = super(UserRegistrationForm, self).save()
         user.is_active = False
         salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
         user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
         user.save()
         return user
+
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
@@ -56,3 +58,16 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'image', 'username', 'email')
+
+
+class ShopUserProfileEdit(forms.ModelForm):
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        for field_name,field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''
+    class Meta:
+            model = UserProfile
+
+            fields = ('tagline', 'about_me', 'gender')
