@@ -17,11 +17,13 @@ class Order(models.Model):
         (CANCELED, 'отменен'),
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    status = models.CharField(choices=STATUSES, default=FORMING,max_length=128)
+    status = models.CharField(choices=STATUSES, default=FORMING, max_length=128)
+    is_actice = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
     class Meta:
-        verbose_name ='эакаэ'
+        verbose_name = 'эакаэ'
         verbose_name_plural = 'эакаэы'
 
     def __str__(self):
@@ -35,6 +37,10 @@ class Order(models.Model):
         items = self.orderitems.select_related()
         return sum(list(map(lambda x: x.get_product_cost, items)))
 
+    def delete(self):
+        self.is_actice = False
+        self.save()
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitems')
@@ -43,4 +49,4 @@ class OrderItem(models.Model):
 
     @property
     def get_product_cost(self):
-        return self.quantity * self.price
+        return self.product.quantity * self.product.price
