@@ -84,8 +84,11 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+        'NAME': 'geekshop',
+        'USER': 'postgres',
     }
 }
 
@@ -144,7 +147,7 @@ EMAIL_HOST_USER = 'django@geekshop.local'
 EMAIL_HOST_PASSWORD = 'geekshop'
 EMAIL_USE_SSL = False
 
-# вариант python -m smtpd -n -c DebuggingServer localhost:25
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅ python -m smtpd -n -c DebuggingServer localhost:25
 # EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
