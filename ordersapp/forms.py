@@ -1,8 +1,8 @@
-from django  import forms
+from django import forms
 from ordersapp.models import Order
 
 
-class OrderForm(forms.Modelform):
+class OrderForm(forms.ModelForm):
     class Meta:
         models = Order
         exclude = ('user',)
