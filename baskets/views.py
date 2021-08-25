@@ -42,3 +42,7 @@ def basket_edit(request, id, quantity):
         }
         result = render_to_string('baskets/basket.html', context)
         return JsonResponse({'result': result})
+
+
+def ankapklas(request):
+    pass
