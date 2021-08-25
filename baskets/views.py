@@ -44,5 +44,3 @@ def basket_edit(request, id, quantity):
         return JsonResponse({'result': result})
 
 
-def ankapklas(request):
-    pass
