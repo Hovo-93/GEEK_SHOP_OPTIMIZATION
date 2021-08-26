@@ -1,4 +1,6 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect,get_object_or_404
+from django.urls import reverse
+
 from products.models import Product
 from baskets.models import Basket
 from django.template.loader import render_to_string
@@ -6,19 +8,38 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 
+# @login_required
+# def basket_add(request, product_id):
+#     product = Product.objects.get(id=product_id)
+#     baskets = Basket.objects.filter(user=request.user, product=product)
+#     if not baskets.exists():
+#         Basket.objects.create(user=request.user, product=product, quantity=1)
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#     else:
+#         basket = baskets.first()
+#         basket.quantity += 1
+#         basket.save()
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 @login_required
-def basket_add(request, product_id):
-    product = Product.objects.get(id=product_id)
-    baskets = Basket.objects.filter(user=request.user, product=product)
-    if not baskets.exists():
-        Basket.objects.create(user=request.user, product=product, quantity=1)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    else:
-        basket = baskets.first()
-        basket.quantity += 1
-        basket.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+def basket_add(request, pk):
+    if 'login' in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('products:product', args=[pk]))
 
+    product = get_object_or_404(Product, pk=pk)
+    old_basket_item = Basket.objects.filter(user=request.user, product=product)
+
+    # old_basket_item = Basket.get_product(user=request.user, product=product)
+
+    if old_basket_item:
+        old_basket_item[0].quantity +=1
+        old_basket_item[0].save()
+    else:
+        new_basket_item = Basket(user=request.user, product=product)
+        new_basket_item.quantity +=1
+        new_basket_item.save()
+
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def basket_remove(request, id):
