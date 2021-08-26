@@ -21,11 +21,11 @@ from django.contrib.auth.decorators import login_required
 #         basket.save()
 #         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 @login_required
-def basket_add(request, pk):
+def basket_add(request, product_id):
     if 'login' in request.META.get('HTTP_REFERER'):
-        return HttpResponseRedirect(reverse('products:product', args=[pk]))
+        return HttpResponseRedirect(reverse('products:product', args=[product_id]))
 
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(Product, id=product_id)
     old_basket_item = Basket.objects.filter(user=request.user, product=product)
 
     # old_basket_item = Basket.get_product(user=request.user, product=product)
