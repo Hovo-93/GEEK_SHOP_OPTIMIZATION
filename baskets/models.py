@@ -18,7 +18,7 @@ class Basket(models.Model):
     #     return self.quantity * self.product.price
     @property
     def product_cost(self):
-        return self.product.price * self.quantity
+        return self.user.product.price * self.quantity
 
 
     # def total_quantity(self):
