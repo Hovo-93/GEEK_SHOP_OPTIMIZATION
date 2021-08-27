@@ -65,7 +65,7 @@
         </div>
         <span style="background-color:#ddd;">
             {% if basket %}
-                {{ basket.0.total_sum|floatformat:0 }} руб ({{ basket.0.total_quantity }} шт)
+                {{ basket.0.get_total_sum|floatformat:0 }} руб ({{ basket.0.get_total_quantity }} шт)
             {% endif %}
              </span>
     </div>
