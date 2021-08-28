@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import cache_page
 
 MODULE_DIR = os.path.dirname(__file__)
 
@@ -65,6 +66,7 @@ def index(request):
 #     }
 #
 #     return render(request, 'products/products.html', context)
+@cache_page(3600)
 def products(request, category_id=None, page=1):
     context = {'title': 'GeekShop Products', 'categories': ProductCategory.objects.all()}
     if category_id:
